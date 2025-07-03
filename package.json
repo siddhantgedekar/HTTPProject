@@ -1,0 +1,23 @@
+{
+  "name": "httpproject",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/siddhantgedekar/HTTPProject.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/siddhantgedekar/HTTPProject/issues"
+  },
+  "homepage": "https://github.com/siddhantgedekar/HTTPProject#readme",
+  "devDependencies": {
+    "jest": "^30.0.4"
+  }
+}
