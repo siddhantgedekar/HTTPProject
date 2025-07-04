@@ -1,0 +1,255 @@
+# Notes
+What's HTTP? (Hyper Text Transfer Protocol)
+
+In old days it was difficult to share data. Now a days it's quite easy using internet.
+
+HTTP is Protocol that's used to control the internet or manipulate it.
+
+Protocol?
+:- Set of Rules on which we agreed to work on. Similar to us when we communicate.
+
+## Communication on Web.
+[we'll work on live api using JS codes, etc..]
+
+HTTP Request and Responses
+: we send request and server sends response based on our request.
+Data via internet is requested using HTTP protocol.
+
+
+## Clients and Servers
+FrontEnd - Clients
+BackEnd - Servers
+
+we send request to server and receive response.
+
+## web addresses [IP address]
+basically they contain information about the address from which the response is required by the server. They has headers which contains info about the servers/pages/etc...
+
+## IP types [IPv4 vs IPv6]
+IPv4 -> 9.2.5.12 [0 - 255 range]
+IPv6 -> 2:4:54:25 [ high range ]
+
+Consider IP address same as your address.
+
+DNS uses these IP address to route the request to particular website/system.
+
+Each IP is lookedup in the DNS to routed to next modem/switch/DNS/website Server/etc..
+
+Two steps when we send request
+1. Resolve DNS - To get the IP address from DNS
+2. Use that IP to make request.
+
+## What is 1.1.1.1?
+: 1.1.1.1 is a public DNS resolver operated by Cloudflare that offers a fast and private way to browse the Internet. Unlike most DNS resolvers, 1.1.1.1 does not sell user data to advertisers. In addition, 1.1.1.1 has been measured to be the fastest DNS resolver available.
+For more: https://www.cloudflare.com/learning/dns/what-is-1.1.1.1/
+
+
+We can get domain name using code and link of the website. URL has hostname() method to get the domain name for the website. [ ICANN keeps dns up and running ]
+
+## Subdomains?
+: subdomain prefixes domain name. For ex: 
+hosted website : boot.dev
+subdomain: api.boot.dev
+- doing this you don't need to buy a new domain name. Like subsets.
+
+URI - Universal Resource Identifier
+URN and URL are subsets of URI
+Mostly on web we usually use URL
+Note: All URL are URIs but not all URI are URL.
+
+terms in links 'http://testuser:testpass@testdomain.com:8080/testpath?testsearch=testvalue#testhash'
+protocol: http:
+username: testuser
+password: testpass
+hostname: testdomain.com
+port: 8080 // if not specified this default is used
+pathname: /testpath
+search: ?testsearch=testvalue
+hash: #testhash
+
+## Ports
+: virtual hubs managed by OS. Different port for webserver and database can be assigned.
+
+Default ports http -> 80, https -> 443
+
+## Synchronous vs ASynchronous code
+Synchronous means code is basically running step by step and no delay in the output.
+
+While ASynchronous lets you do parallel coding/running. We can wait for response from the server.
+
+# You can do waiting using setTimeout() function when not using async.
+also need to declare wait time -> const waitTime = 100 (milisecond)
+
+const callback => () => {
+    console.log("Print second");
+}
+console.log("Print first");
+setTimeout(callback, waitTime);
+console.log("Print third");
+
+## Every time we make an HTTP request on web we need to use Async to wait for the response from the server, while we can do other things in the mean time.
+
+## Promises in java script
+const promise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        // some code.
+    })
+})
+
+# A promise has 3 states, resolved, reject, pending.
+
+how to create promise?
+const promise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        if(getRandomBool()) {
+            resolve("Resolved!")
+        }
+        else {
+            reject("Rejected!")
+        }
+    }, 1000) // 1 second or 1000 mili second
+})
+
+# How to use it?
+Promise has 2 callback functions
+promise.then((message) => { // .then runs when promise is completed
+    console.log("the promise is finaly"+message)
+}).catch((message) => { // when promise is rejected
+    console.log("the promise is finaly"+message)
+})
+
+## Assignment
+complete applyDamage function to currentHP. Wait for the damage to be applied
+
+async is used in function using await.
+AND
+promise is used when we're not using above two, else we're using then and catch.
+
+
+## Error handeling using try-catch block
+what we're doing is that we're calling/making a request to the server for the information on leaderBoard. As it's a client-server communication we need to wait for the response to be sent back hence the function we'll declare to perform that need to be an async function. Which when called will await and after completing, response will be stored and displayed out.
+
+## What are Headers?
+: headers allow client to provide additional information. Kind of metadata (data about data). {For the server to figure certain things out.}
+
+A response object will be returned from the server using the fetch() call.
+# How to get headers?
+Headers allow us to perform various actions on request and response.
+Methods:- Request.headers and Reponse.headers
+Headers.get() //return byte string of value of header
+
+There are different types of Headers such as 'content-type'
+
+## What are browser dev tools
+Tools such as: inspect tool, network tab, etc..
+
+We can check how long each fetch request are taking by looking at the timline column.
+
+## Why headers are useful?
+They are also used to provide private info, such as level, money, gems, etc.. related to the user's private information or Metadata.
+'X-API-Key' prevents users to overwrite another user's saved data. This is taken care by BackEnd team. Every time a new API key needs to be genereated. [Get to know about the API key generation]
+
+## JSON syntax [JavaScript Object Notation]
+: using json is easy to send data as plain Text
+format - 
+{
+    "movies": {
+        "id": 1,
+        "genre": "Action",
+        "title": "Iron Man",
+        "director": "Jon Favreau",
+    }
+}
+
+As json is plain text, it's difficult to manipulate that data, hence we need to make it into an object using response.json();
+
+You can use json to send and receive data.
+Like JSON.stringify(). We can reverse it using JSON.parse(json)
+
+XML also used to send data similar to json.
+
+Looking at different HTTP methods.
+GET - gets/fetches data using Fetch API. This data can be used to display certain information.
+
+# How to make a fetch request?
+await fetch(url, {
+    method: 'GET', // method of request
+    mode: 'cors' // mode doesn't kill our request,
+    headers: {
+        // can be any information
+        'sec-ch-ua-platform': 'macOS'
+    }
+})
+
+# Assignment
+async function getUsers(url, apiKey) {
+    const resp = await fetch(url, {
+        method: 'GET',
+        mode: 'cors',
+        headers: {
+            'X-API-KEY': apiKey
+        }
+    })
+}
+.
+..
+... etc
+
+
+
+## CRUD - CREATE READ UPDATE DELETE
+nearly every action is one of the above
+/ CONVENTION /
+CREATE - POST
+READ - GET
+UPDATE - PUT/PATCH
+DELETE - DELETE
+
+// we saw how fetch request is made using http
+
+# Status code vs Error
+error occur when something goes wrong, while status code is related to every http request that faced failure.
+
+There are bunch of status codes for every http request.
+
+common status codes: 2xx (200) means ok, 4xx error at client side, 5xx error at server side.
+
+# PUT vs PATCH
+put updates whole Resource while patch partially updates Resource
+
+using delete method in JS
+
+// demo
+async function deleteUser(baseURL, id, apiKey) {
+    const fullURL = `${baseURL}/${id}`
+    const resp = await fetch(fullURL, {
+        method: 'DELETE',
+        mode: 'cors',
+        headers: {
+            'X-API-KEY': ____
+        }
+    })
+}
+
+## How paths are used now a days?
+https://www.____.com/....
+
+## RESTFUL APIs [Representational State Transfer]
+for building better api
+
+// rules
+0. Separate and agnostic
+- i.e server and client are separate
+
+1. Stateless
+- server don't need to know it's state and also to client.
+
+HTTP and HTTPS are same.
+
+### WE ARE GOING TO BUILD A PROJECT ###
+
+if you do this -> module.export = {
+    // function name
+    normalize
+}
+// you can import this function in other files.
